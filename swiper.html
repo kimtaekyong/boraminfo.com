@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swiper Slide with Progress Bar and Animation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; /* 스크롤 떨림 방지 */
+      }
+      .swiper-container {
+        width: 100%;
+        height: 100vh;
+      }
+      .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .progress-bar {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: rgba(0, 0, 0, 0.1);
+      }
+      .progress-bar-fill {
+        height: 100%;
+        width: 0;
+        background: #007bff;
+        transition: width linear;
+      }
+      .animated-text {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease-in-out;
+      }
+      .animated-text.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .autoplay-btn {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          Slide 1
+          <div class="animated-text">Text 1</div>
+        </div>
+        <div class="swiper-slide">
+          Slide 2
+          <div class="animated-text">Text 2</div>
+        </div>
+        <div class="swiper-slide">
+          Slide 3
+          <div class="animated-text">Text 3</div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="progress-bar">
+        <div class="progress-bar-fill"></div>
+      </div>
+      <button class="autoplay-btn">Pause</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      const swiper = new Swiper(".swiper-container", {
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+          type: "fraction",
+        },
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+        },
+        on: {
+          init: function () {
+            setTimeout(() => {
+              const progressFill = document.querySelector(".progress-bar-fill");
+              progressFill.style.transition = `width ${swiper.params.autoplay.delay}ms linear`;
+              progressFill.style.width = "100%";
+            }, 100); // 초기 로드에서 딜레이 추가로 애니메이션 트리거
+          },
+          slideChangeTransitionStart: function () {
+            const progressFill = document.querySelector(".progress-bar-fill");
+            progressFill.style.transition = "none";
+            progressFill.style.width = "0%";
+          },
+          slideChangeTransitionEnd: function () {
+            const progressFill = document.querySelector(".progress-bar-fill");
+            progressFill.style.transition = `width ${swiper.params.autoplay.delay}ms linear`;
+            progressFill.style.width = "100%";
+
+            // 텍스트 애니메이션 적용
+            const texts = document.querySelectorAll(".animated-text");
+            texts.forEach((text) => text.classList.remove("active"));
+            const currentSlide = swiper.slides[swiper.activeIndex];
+            const currentText = currentSlide.querySelector(".animated-text");
+            if (currentText) {
+              currentText.classList.add("active");
+            }
+          },
+        },
+      });
+
+      const autoplayBtn = document.querySelector(".autoplay-btn");
+      autoplayBtn.addEventListener("click", () => {
+        if (swiper.autoplay.running) {
+          swiper.autoplay.stop();
+          autoplayBtn.textContent = "Play";
+        } else {
+          swiper.autoplay.start();
+          autoplayBtn.textContent = "Pause";
+        }
+      });
+
+      swiper.init(); // Swiper 초기화 시 진행바 애니메이션 실행
+    </script>
+  </body>
+</html>
