@@ -8,12 +8,13 @@
 
 /* 헤더 */
 header {
-  position: fixed;
+  position: absolute;
   width: 100%;
   z-index: 100;
+  top: 0;
 }
 
-header > .inner {
+header>.inner {
   display: flex;
   justify-content: start;
   align-items: center;
@@ -24,7 +25,9 @@ header > .inner {
 #swiper-silde {
   background-color: #f5f5f5;
   position: relative;
+  height: 70vh;
 }
+
 .slider-title-box {
   width: 100%;
   position: absolute;
@@ -33,13 +36,36 @@ header > .inner {
   z-index: 100;
   transform: translateY(-50%);
 }
+
 .slider-title-box h4 {
   font-size: 48px;
   line-height: 1.25;
 }
+
 .swiper {
   width: 100%;
   height: 100%;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  /* 가로와 세로 비율을 동일하게 설정 */
+}
+
+.slide-controller {
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.swiper-pagination-fraction {
+  width: auto !important;
 }
 
 .swiper-slide {
@@ -50,37 +76,64 @@ header > .inner {
   justify-content: center;
   align-items: center;
 }
+
 .swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.slide-controller {
-  position: relative;
+
+.swiper-pagination-number {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.65px;
 }
-.swiper-pagination {
-  position: relative !important;
-  text-align: left !important;
-  display: inline-block !important;
+
+.progress-bar {
+  width: 100%;
+  max-width: 260px;
+  height: 4px;
+  background: #fff;
 }
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0;
+  background: #007bff;
+  transition: width linear;
+}
+
+.slide-text-animated h4 {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-in-out;
+}
+
+.slide-text-animated h4.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* 메인 */
 main {
   margin-bottom: 140px;
 }
+
 .contant-text-wrap {
   display: flex;
   justify-content: space-between;
   padding: 120px 0 140px 0;
   letter-spacing: -1px;
-  margin: 0 108px;
 }
+
 .contant-text-wrap h2 {
   font-weight: 700;
   font-size: 38px;
   color: var(--font-title-color);
   letter-spacing: -1.55px;
 }
+
 .contant-text-wrap p {
   font-weight: 700;
   font-size: 18px;
@@ -91,12 +144,15 @@ main {
   max-width: 520px;
   word-break: auto-phrase;
 }
+
 .contant-container {
   text-align: center;
 }
+
 .contant-container .section-txt {
   padding-bottom: 48px;
 }
+
 .contant-container .section-txt .point-bage {
   display: inline-flex;
   align-items: center;
@@ -109,6 +165,7 @@ main {
   font-size: 16px;
   letter-spacing: -0.55px;
 }
+
 .contant-container .section-txt h2 {
   font-size: 32px;
   color: var(--font-title-color);
@@ -116,38 +173,47 @@ main {
   font-weight: 700;
   padding: 18px 0 8px 0;
 }
+
 .contant-container .section-txt p {
   color: var(--font-txt-color);
   letter-spacing: -1.25px;
   font-size: 18px;
   font-weight: 500;
 }
+
 .contant-container .item-list {
   display: flex;
-  margin: 0 108px;
+  justify-content: center;
   column-gap: 18px;
 }
-.contant-container .item-list > ul {
+
+.contant-container .item-list>ul {
   display: flex;
   flex-direction: column;
   row-gap: 18px;
 }
+
 .contant-container .item-list .right-item {
   margin-top: 140px;
 }
-.contant-container .item-list > ul > li {
+
+.contant-container .item-list>ul>li {
   width: 100%;
-  min-height: 580px;
+  height: 100vh;
+  max-height: 680px;
   border-radius: 8px;
   position: relative;
+  overflow: hidden;
 }
-.contant-container .item-list > ul > li .item-comtant {
+
+.contant-container .item-list>ul>li .item-comtant {
   padding: 42px 0 42px 42px;
   position: absolute;
   bottom: 0;
   text-align: left;
 }
-.contant-container .item-list > ul > li .item-comtant .item-bage {
+
+.contant-container .item-list>ul>li .item-comtant .item-bage {
   display: inline-flex;
   align-items: center;
   background-color: var(--bg-point);
@@ -159,44 +225,59 @@ main {
   border-radius: 6px;
   letter-spacing: -0.55px;
 }
-.contant-container .item-list > ul > li .item-comtant .item-text {
+
+.contant-container .item-list>ul>li .item-comtant .item-text {
   margin: 12px 0 18px 0;
 }
-.contant-container .item-list > ul > li .item-comtant .item-text li {
+
+.contant-container .item-list>ul>li .item-comtant .item-text li {
   line-height: 1.65;
 }
-.contant-container .item-list > ul > li .item-comtant .item-text li p {
+
+.contant-container .item-list>ul>li .item-comtant .item-text li p {
   color: #fff;
   font-size: 18px;
   letter-spacing: -1.25px;
   font-weight: 500;
 }
-.contant-container .item-list > ul > li .item-comtant > button {
+
+.contant-container .item-list>ul>li .item-comtant>button {
   color: #fff;
 }
-.contant-container .select-img,
-.contant-container .select-opt {
-  margin: 0 108px;
+
+.contant-container .select-img {
+  height: 100vh;
+  max-height: 440px;
+  border-radius: 8px;
+  overflow: hidden;
 }
+
+.contant-container .select-img,
+.contant-container .select-opt {}
+
 .contant-container .select-opt {
   margin-top: 12px;
 }
+
 .contant-container .select-opt ul li {
   display: flex;
   justify-content: space-between;
   text-align: left;
-  padding: 18px 24px;
+  padding: 32px 24px;
   border-bottom: 1px solid #e5e5e5;
 }
+
 .contant-container .select-opt ul li:last-child {
   border-bottom: none;
 }
+
 .contant-container .select-opt ul li .opt h2 {
   color: var(--font-title-color);
   font-size: 26px;
   font-weight: 700;
   letter-spacing: -1.85px;
 }
+
 .contant-container .select-opt ul li .opt p {
   color: var(--font-txt-color);
   font-size: 16px;
@@ -204,10 +285,12 @@ main {
   letter-spacing: -1.35px;
   font-weight: 700;
 }
+
 .contant-container .select-opt ul li .opt-contant {
   width: 100%;
   max-width: 500px;
 }
+
 .contant-container .select-opt ul li .opt-contant p {
   color: rgba(66, 66, 66, 0.55);
   font-size: 16px;
@@ -217,21 +300,46 @@ main {
 }
 
 /* 푸터 */
-.ft-top {
+footer {
+  padding: 38px 0;
   border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 24px 0;
 }
-.ft-top ul {
+
+.ft-top {}
+
+.ft-top .ft-logo {
+  text-align: center;
+}
+
+.ft-top .ft-link {
+  padding: 20px 0;
+}
+
+.ft-top .ft-link ul {
   display: flex;
+  justify-content: center;
   column-gap: 12px;
 }
-.ft-top ul li a {
-  color: #666666;
+
+.ft-top .ft-link ul li a {
+  color: #3985F2;
   font-size: 16px;
   font-weight: 500;
+
+}
+
+.ft-top .ft-link ul li a:hover {
+  text-decoration: underline;
 }
 
 .ft-bottom {
-  padding: 42px;
+  text-align: center;
+}
+
+.ft-bottom p {
+  line-height: 1.85;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--font-txt-color);
+
 }

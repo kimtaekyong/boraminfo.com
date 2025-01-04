@@ -16,6 +16,7 @@
 html,
 body {
   letter-spacing: -1px;
+  overflow-x: hidden;
 }
 
 li,
@@ -39,7 +40,9 @@ p {
 }
 
 img {
-  vertical-align: top;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+
 }
